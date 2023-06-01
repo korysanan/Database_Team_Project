@@ -128,8 +128,8 @@ CREATE TABLE `platform_events`
     `name` varchar(50)DEFAULT '' NOT NULL,
 	`start` timestamp DEFAULT now() NOT NULL,
     `end` timestamp DEFAULT now() NOT NULL,
-    `condition` varchar(50) DEFAULT '' NOT NULL,	/*크기 얼마나?*/
-    `detail` varchar(100) DEFAULT '' NOT NULL,		/*크기 얼마나?*/
+    `condition` varchar(20) DEFAULT '' NOT NULL,
+    `detail` varchar(50) DEFAULT '' NOT NULL,
     PRIMARY KEY(`num`),
     KEY `platform_name`(`platform_name`),
     CONSTRAINT `platform_events_ibfk_1` FOREIGN KEY(`platform_name`) REFERENCES `platforms`(`name`) ON DELETE CASCADE
