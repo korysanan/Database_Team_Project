@@ -5,40 +5,30 @@ use DBDBDIB;
 
 /*Table structure for table `members`(회원) */
 
-DROP TABLE IF EXISTS members;
-
-CREATE TABLE members
-(
-	`id` varchar(50) DEFAULT '' NOT NULL,
-    `name` varchar(50) DEFAULT ''  NOT NULL,
-    `password` varchar(50) DEFAULT '' NOT NULL,
-    `email` varchar(50) DEFAULT '' NOT NULL,
-    `age` int(3) DEFAULT 0 NOT NULL,
-    `sub` timestamp DEFAULT now() NOT NULL,
-    `last_join` int(11) DEFAULT 0,
-    `genre` varchar(50) DEFAULT NULL,
-	`wave` bool DEFAULT false,
-	`netflix` bool DEFAULT false,
-	`tving` bool DEFAULT false,
-	`disney` bool DEFAULT false,
-    PRIMARY KEY(`name`)
+create table members (
+    user_num int not null auto_increment,
+    user_nickname varchar(50) not null,
+    email varchar(50) not null,
+    user_id char(50) not null,
+    password char(50) not null,
+    recent_access char(20) not null default "tmp_string",
+    num_of_messege int default 0,
+    primary key(user_num)
 );
 
-DROP TABLE IF EXISTS reviews;
-
-CREATE TABLE reviews
-(
-	postNumber INT PRIMARY KEY AUTO_INCREMENT,
-    memberName VARCHAR(50) NOT NULL,
-    reviewTitle VARCHAR(20) NOT NULL CHECK (LENGTH(reviewTitle) <= 20),
-    reviewContent LONGTEXT CHECK (LENGTH(reviewContent) >= 30),
-    postDate TIMESTAMP DEFAULT now(),
-    likes INT default 0,
-    dislikes INT default 0,
-    FOREIGN KEY (memberName) references members(name)
+create table join_platform (
+    user_num int,
+    platform varchar(50),
+    primary key(user_num),
+    foreign key (user_num) references members(user_num)
 );
 
-DROP TABLE IF EXISTS contents;
+create table prefer_genre (
+    user_num int,
+    genre varchar(50),
+    primary key(user_num),
+    foreign key(user_num) references members(user_num)
+);
 
 create table contents
 (
@@ -53,8 +43,6 @@ create table contents
     PRIMARY KEY(id)
 );
 
-DROP TABLE IF EXISTS contents_platform;
-
 create table contents_platform
 (
 	id int default 0 NOT NULL,
@@ -65,8 +53,6 @@ create table contents_platform
     CONSTRAINT contents_platform_ibfk FOREIGN KEY (id) REFERENCES contents(id)
 );
 
-DROP TABLE IF EXISTS contents_limit;
-
 create table contents_limit
 (
 	id int default 0 NOT NULL,
@@ -75,8 +61,6 @@ create table contents_limit
     KEY(id),
     CONSTRAINT contents_limit_ibfk FOREIGN KEY(id) REFERENCES contents(id)
 );
-
-DROP TABLE IF EXISTS contents_genre;
 
 create table contents_genre
 (
@@ -87,22 +71,35 @@ create table contents_genre
     CONSTRAINT contents_genre_ibfk FOREIGN KEY(id) REFERENCES contents(id)
 );
 
-DROP TABLE IF EXISTS Grade;
+ALTER TABLE members ADD INDEX idx_members_id (user_nickname);
 
-ALTER TABLE members ADD INDEX idx_members_id (id);
+ALTER TABLE contents ADD INDEX idx_title (title);
+
+CREATE TABLE reviews
+(
+	postNumber INT NOT NULL Auto_increment,
+    user_nickname VARCHAR(50) NOT NULL,
+    contents_title VARCHAR(50)  default '' NOT NULL,
+    reviewTitle VARCHAR(20) NOT NULL CHECK (LENGTH(reviewTitle) <= 20),
+    reviewContent LONGTEXT CHECK (LENGTH(reviewContent) >= 30),
+    postDate TIMESTAMP DEFAULT now(),
+    likes INT default 0,
+    dislikes INT default 0,
+    PRIMARY KEY(postNumber),
+    FOREIGN KEY (user_nickname) references members(user_nickname),
+    FOREIGN KEY (contents_title) references contents(title)
+);
 
 create table Grade
 (
 	Content_ID int Not Null,
-    Member_ID varchar(20) Not Null,
+    Member_ID int Not Null,
     grade int,
 	constraint Grade_PK primary key(Content_ID, Member_ID),
     constraint grade_limit check(grade >=1 and grade<=10),
     foreign key (Content_ID) references contents(id),
-    foreign key (Member_ID) references members(id)
+    foreign key (Member_ID) references members(user_num)
 );
-
-DROP TABLE IF EXISTS event;
 
 create table event
 (
@@ -115,8 +112,6 @@ create table event
     PRIMARY KEY(event_id),
     UNIQUE (event_name)
 );
-
-DROP TABLE IF EXISTS users;
 
 create table users
 (
@@ -137,8 +132,6 @@ create table users
     UNIQUE (user_nickname)
 );
 
-DROP TABLE IF EXISTS platforms;
-
 CREATE TABLE platforms
 (
 	`name` varchar(50) DEFAULT '' NOT NULL,
@@ -155,8 +148,6 @@ CREATE TABLE platforms
 #();
 
 /*Table structure for table `platform_events`(플랫폼 이벤트) */
-
-DROP TABLE IF EXISTS platform_events;
 
 CREATE TABLE platform_events
 (
