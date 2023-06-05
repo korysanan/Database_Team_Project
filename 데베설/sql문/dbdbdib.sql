@@ -115,31 +115,25 @@ create table event
 
 CREATE TABLE platforms
 (
-	`name` varchar(50) DEFAULT '' NOT NULL,
-    `introduction` varchar(50) DEFAULT '' NOT NULL,
-    `price` int(11) DEFAULT 0 NOT NULL,
-    `family_price` bool DEFAULT false,
-    `link` varchar(50) DEFAULT '' NOT NULL,
-    `rating` int(1) DEFAULT 0 NOT NULL,
-    PRIMARY KEY(`name`)
+	name varchar(50) DEFAULT '' NOT NULL,
+    introduction varchar(50) DEFAULT '' NOT NULL,
+    price int(11) DEFAULT 0 NOT NULL,
+    family_price bool DEFAULT false,
+    link varchar(50) DEFAULT '' NOT NULL,
+    rating int(1) DEFAULT 0 NOT NULL,
+    PRIMARY KEY(name)
 );
-
-/*Date for the table `platforms`(플랫폼)*/
-#insert into `platforms` values
-#();
-
-/*Table structure for table `platform_events`(플랫폼 이벤트) */
 
 CREATE TABLE platform_events
 (
-	`num` int(11) AUTO_INCREMENT,
-    `platform_name` varchar(50) DEFAULT '' NOT NULL,
-    `name` varchar(50)DEFAULT '' NOT NULL,
-	`start` timestamp DEFAULT now() NOT NULL,
-    `end` timestamp DEFAULT now() NOT NULL,
-    `condition` varchar(20) DEFAULT '' NOT NULL,
-    `detail` varchar(50) DEFAULT '' NOT NULL,
-    PRIMARY KEY(`num`),
-    KEY `platform_name`(`platform_name`),
-    CONSTRAINT `platform_events_ibfk_1` FOREIGN KEY(`platform_name`) REFERENCES `platforms`(`name`) ON DELETE CASCADE
+	num int(11) AUTO_INCREMENT,
+    platform_name varchar(50) DEFAULT '' NOT NULL,
+    name varchar(50)DEFAULT '' NOT NULL,
+	start timestamp DEFAULT now() NOT NULL,
+    end timestamp DEFAULT '2999-12-31' NOT NULL,
+    requirement varchar(20) DEFAULT '' NOT NULL,
+    detail varchar(50) DEFAULT '' NOT NULL,
+    PRIMARY KEY(num),
+    KEY platform_name(platform_name),
+    CONSTRAINT platform_events_ibfk_1 FOREIGN KEY(platform_name) REFERENCES platforms(name) ON DELETE CASCADE
 );
