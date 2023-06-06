@@ -51,18 +51,14 @@ CREATE TABLE `contents`
 /*Table structure for table `reviews`(리뷰) */
 CREATE TABLE `reviews`
 (
-	`num` int(11) AUTO_INCREMENT,
-    `content_id` int(11) DEFAULT 0 NOT NULL,
-    `writer`  varchar(50) DEFAULT '' NOT NULL,
-    `review` varchar(50) DEFAULT '' NOT NULL,
-	`time` timestamp DEFAULT now() NOT NULL,
-    `good` int(11) DEFAULT 0 NOT NULL,
-    `bad` int(11)  DEFAULT 0 NOT NULL,
-	PRIMARY KEY(`num`),
-    KEY `content_id`(`content_id`),
-    KEY `writer`(`writer`),
-	CONSTRAINT `reviwes_ibfk_1` FOREIGN KEY (`content_id`) REFERENCES `contents` (`id`),
-    CONSTRAINT `reviwes_ibfk_2` FOREIGN KEY (`writer`) REFERENCES `members` (`name`) ON UPDATE CASCADE ON DELETE CASCADE
+	postNumber INT PRIMARY KEY AUTO_INCREMENT,
+    memberNumber INT NOT NULL,
+    reviewTitle VARCHAR(20) NOT NULL CHECK (LENGTH(reviewTitle) <= 20),
+    reviewContent LONGTEXT CHECK (LENGTH(reviewContent) >= 30),
+    postDate TIMESTAMP DEFAULT current_timestamp,
+    likes INT default 0,
+    dislikes INT default 0,
+    FOREIGN KEY (memberNumber) references members(id)
 );
 
 /*Data for the table `reviews`(리뷰) */
@@ -128,8 +124,8 @@ CREATE TABLE `platform_events`
     `name` varchar(50)DEFAULT '' NOT NULL,
 	`start` timestamp DEFAULT now() NOT NULL,
     `end` timestamp DEFAULT now() NOT NULL,
-    `condition` varchar(50) DEFAULT '' NOT NULL,	/*크기 얼마나?*/
-    `detail` varchar(100) DEFAULT '' NOT NULL,		/*크기 얼마나?*/
+    `condition` varchar(20) DEFAULT '' NOT NULL,
+    `detail` varchar(50) DEFAULT '' NOT NULL,
     PRIMARY KEY(`num`),
     KEY `platform_name`(`platform_name`),
     CONSTRAINT `platform_events_ibfk_1` FOREIGN KEY(`platform_name`) REFERENCES `platforms`(`name`) ON DELETE CASCADE
