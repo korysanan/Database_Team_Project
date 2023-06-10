@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIP</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/member.css">
@@ -10,94 +10,36 @@
 <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
 <script src="https://kit.fontawesome.com/331cd420b4.js" crossorigin="anonymous"></script>
-
-<script>
-   function check_input()
-   {
-      if (!document.member_form.id.value) {
-          alert("아이디를 입력하세요!");    
-          document.member_form.id.focus();
-          return;
-      }
-
-      if (!document.member_form.pass.value) {
-          alert("비밀번호를 입력하세요!");    
-          document.member_form.pass.focus();
-          return;
-      }
-
-      if (!document.member_form.pass_confirm.value) {
-          alert("비밀번호확인을 입력하세요!");    
-          document.member_form.pass_confirm.focus();
-          return;
-      }
-
-      if (!document.member_form.name.value) {
-          alert("이름을 입력하세요!");    
-          document.member_form.name.focus();
-          return;
-      }
-
-      if (!document.member_form.email1.value) {
-          alert("이메일 주소를 입력하세요!");    
-          document.member_form.email1.focus();
-          return;
-      }
-
-      if (!document.member_form.email2.value) {
-          alert("이메일 주소를 입력하세요!");    
-          document.member_form.email2.focus();
-          return;
-      }
-
-      if (document.member_form.pass.value != 
-            document.member_form.pass_confirm.value) {
-          alert("비밀번호가 일치하지 않습니다.\n다시 입력해 주세요!");
-          document.member_form.pass.focus();
-          document.member_form.pass.select();
-          return;
-      }
-
-      document.member_form.submit();
-   }
-
-   function reset_form() {
-      document.member_form.id.value = "";  
-      document.member_form.pass.value = "";
-      document.member_form.pass_confirm.value = "";
-      document.member_form.name.value = "";
-      document.member_form.email1.value = "";
-      document.member_form.email2.value = "";
-      document.member_form.id.focus();
-      return;
-   }
-
-   function check_id() {
-     window.open("member_check_id.php?id=" + document.member_form.id.value,
-         "IDcheck",
-          "left=700,top=300,width=350,height=200,scrollbars=no,resizable=yes");
-   }
-</script>
+<script type="text/javascript" src="./js/member_modify.js"></script>
 </head>
 <body> 
 	<header>
     	<?php include "header.php";?>
     </header>
+<?php    
+   	$con = mysqli_connect("localhost", "root", "", "dbdbdip");
+    $sql    = "select * from members where user_id='$userid'";
+    $result = mysqli_query($con, $sql);
+    $row    = mysqli_fetch_array($result);
+
+    $pass = $row["password"];
+    $name = $row["user_nickname"];
+
+    $email = explode("@", $row["email"]);
+    $email1 = $email[0];
+    $email2 = $email[1];
+
+    mysqli_close($con);
+?>
 	<section>
         <div id="main_content">
-          <h3>
-            <i class="fa-solid fa-star fa-bounce" style="color: #ffe01a;"></i>
-            Dairy For Me에 어서오세요!
-            <i class="fa-solid fa-star fa-bounce" style="color: #ffe01a;"></i>
-          </h3>
       		<div id="join_box">
-          	<form  name="member_form" method="post" action="member_insert.php">
-			    <h2>회원 가입</h2>
+          	<form  name="member_form" method="post" action="member_modify.php?id=<?=$userid?>">
+			    <h2>내 정보수정</h2>
     		    	<div class="form id">
 				        <div class="col1">아이디</div>
-				        <div class="col2"> <input type="text" name="id"></div>  
-				        <div class="col3">
-				        	<span class="check" onclick="check_id()">중복확인</span>
+				        <div class="col2">
+							<?=$userid?>
 				        </div>                 
 			       	</div>
 			       	<div class="clear"></div>
@@ -105,32 +47,33 @@
 			       	<div class="form">
 				        <div class="col1">비밀번호</div>
 				        <div class="col2">
-							<input type="password" name="pass">
+							<input type="password" name="pass" value="<?=$pass?>">
 				        </div>                 
 			       	</div>
 			       	<div class="clear"></div>
 			       	<div class="form">
 				        <div class="col1">비밀번호 확인</div>
 				        <div class="col2">
-							<input type="password" name="pass_confirm">
+							<input type="password" name="pass_confirm" value="<?=$pass?>">
 				        </div>                 
 			       	</div>
 			       	<div class="clear"></div>
 			       	<div class="form">
-				        <div class="col1">닉네임</div>
+				        <div class="col1">이름</div>
 				        <div class="col2">
-							<input type="text" name="name">
+							<input type="text" name="name" value="<?=$name?>">
 				        </div>                 
 			       	</div>
 			       	<div class="clear"></div>
 			       	<div class="form email">
 				        <div class="col1">이메일</div>
 				        <div class="col2">
-							<input type="text" name="email1">@<input type="text" name="email2">
+							<input type="text" name="email1" value="<?=$email1?>">@<input 
+							       type="text" name="email2" value="<?=$email2?>">
 				        </div>                 
-			       	</div>
-
-              <div class="clear"></div>
+				    </div> 
+				      	 
+			<div class="clear"></div>
               <div class="form">
                 <div class="col1">선호장르</div>
 
@@ -209,13 +152,11 @@
                   <label >디즈니+</label>
                   <input type="checkbox" name="platform[]" value="디즈니+">
                 </div>
-
-
 			       	<div class="clear"></div>
 			       	<div class="bottom_line"> </div>
 			       	<div class="buttons">
-                    <li><button onclick="histroy.go(-1)">뒤로 가기</button></li>
-                    <li><button onclick="check_input()">회원 가입</button></li>
+                    	<li><button onclick="histroy.go(-1)">뒤로 가기</button></li>
+                    	<li><button onclick="check_input()">수정 하기</button></li>
 	           	</div>
            	</form>
         	</div> <!-- join_box -->

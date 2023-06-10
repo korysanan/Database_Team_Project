@@ -36,6 +36,8 @@
                 <li><a href="logout.php">로그아웃</a> </li>
                 <li> | </li>
                 <li><a href="member_modify_form.php">정보 수정</a></li>
+                <li> | </li>
+                <li><a href="member_delete.php">회원 탈퇴</a></li>
 <?php
     }
 ?>
@@ -44,9 +46,9 @@
         </div>
         <div id="menu_bar">
             <ul> 
-                <li><a href="board_list.php">Our Diary</a></li>
-                <li><a href="board_list_for_me.php">My Diary</a></li>
-                <li><a href="board_form.php">Make Diary</a></li>
+                <li><a href="contents_list.php">Contents</a></li>
+                <li><a href="board_list.php">Boards</a></li>
+                <li><a href="board_form.php">Event</a></li>
                 <?php if($num_of_messege != 0){
                         // 안읽은 쪽지가 있다면 
                 ?>
