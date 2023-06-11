@@ -27,19 +27,6 @@
 	font-size: 20px;
 	}
 
-	#board_box .card {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; */
-  width: 250px;
-  height: 370px;
-  margin: 15px;
-  border-radius: 5px;
-  box-shadow: rgb(0 0 0 / 6%) 0px 4px 16px 0px;
-  background-color: white;
-  transition: box-shadow 0.25s ease-in 0s;
-}
-
 #board_box .buttons button:hover { 
 	background-color: white;
 	border: 1px solid #828DE2;
@@ -60,7 +47,7 @@
 }
 
 #btn_group button{
-		padding: 5px 10px;  
+		padding: 5px 10px; 
 		font-size: 20px;
 		border-top-right-radius: 100px;
 		border-top-left-radius: 100px;
@@ -69,7 +56,7 @@
 }
 
 #btn_group button:hover{
-		background-color: #828DE2;
+	background-color: #828DE2;
 	border: 2px solid #828DE2;
 	color: white;
 }
@@ -97,43 +84,5 @@
 	cursor: pointer; 
 }
 
-.image_file {
-  height: 70%;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-.image_file img {
-  height: 300px;
-  overflow: hidden;
-  /* height: 100%; */
-  width: 100%;
-  object-fit: fill;
-  border: 1px;
-}
 
 
-.board_list_block {
-  height: 20%;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  background-color: white;
-  padding: 5px;
-}
-
-
-#board_list ul li {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  width: 100%;
-  margin: 20px;
-  margin-bottom: 100px;
-}
-#board_list {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 100px;
-}

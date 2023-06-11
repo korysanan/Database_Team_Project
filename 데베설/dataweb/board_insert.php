@@ -6,11 +6,10 @@
     if (isset($_SESSION["username"])) $username = $_SESSION["username"];
     else $username = "";
     
-    $con = mysqli_connect("localhost", "root", "", "dm");
+    $con = mysqli_connect("localhost", "root", "", "DBDBDIB");
 
     $subject = $_POST["subject"];
     $content = $_POST["content"];
-    $public = $_POST["public"];
 
 	$subject = htmlspecialchars($subject, ENT_QUOTES);
 	$content = htmlspecialchars($content, ENT_QUOTES);
@@ -65,9 +64,9 @@
 	}
 	
 
-	$sql = "insert into board (id, name, subject, content, regist_day, hit,  file_name, file_type, file_copied, public, recommend) ";
+	$sql = "insert into board (id, name, subject, content, regist_day, hit,  file_name, file_type, file_copied, recommend) ";
 	$sql .= "values('$userid', '$username', '$subject', '$content', '$regist_day', 0, ";
-	$sql .= "'$upfile_name', '$upfile_type', '$copied_file_name', '$public', 0)";
+	$sql .= "'$upfile_name', '$upfile_type', '$copied_file_name', 0)";
 	mysqli_query($con, $sql);  // $sql 에 저장된 명령 실행
 
 

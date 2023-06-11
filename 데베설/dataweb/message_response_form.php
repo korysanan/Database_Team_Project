@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/message.css">
@@ -40,7 +40,7 @@
 <?php
 	$num  = $_GET["num"];
 
-	$con = mysqli_connect("localhost", "root", "", "DM");
+	$con = mysqli_connect("localhost", "root", "", "DBDBDIB");
 	$sql = "select * from message where num=$num";
 	$result = mysqli_query($con, $sql);
 

@@ -24,7 +24,7 @@
         pg : 'danal_tpay', // version 1.1.0부터 지원.
         pay_method : 'card',
         merchant_uid : 'merchant_' + makeMerchantUid,
-        name : 'Diary For Me 후원',
+        name : 'DBDBDIB 후원',
         amount : 1000,
         buyer_email : '',
         buyer_name : '',
@@ -44,12 +44,9 @@
     }
 </script>
       <div id="main_content">
-            <div id="logo_img">
-                <img src="./img/logo.png">
-            </div>
 
             <div id = "messege_for_supportor">
-                Dairy For Me 서비스가 마음에 드셨다면 후원해주세요!<br>
+                DBDBDIB 서비스가 마음에 드셨다면 후원해주세요!<br>
                 작은 후원이 어린 제작자를 춤추게 만듭니다!
             </div>
             <div id = "donate_btn">

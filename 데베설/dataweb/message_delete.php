@@ -8,7 +8,7 @@
 
 
 
-	$con = mysqli_connect("localhost", "root", "", "DM");
+	$con = mysqli_connect("localhost", "root", "", "DBDBDIB");
 
 
 	$sql = "delete from message where num=$num";

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <style>
 h3 {
@@ -48,7 +48,7 @@ h3 {
    }
    else
    {
-      $con = mysqli_connect("localhost", "root", "", "dbdbdip");
+      $con = mysqli_connect("localhost", "root", "", "dbdbdib");
 
       $sql = "select user_num from members where user_id='$mid'";
       $result = mysqli_query($con, $sql);

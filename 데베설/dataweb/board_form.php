@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/board_form.css">
@@ -85,16 +85,6 @@
 			    	<div id = "preview_image">
 			    			<img id="preview"/></span>
 			    	</div>	
-			    </li>
-			    <li>
-			        <div class="radio-group">
-			        		<label for="public-radio">전체 공개</label>
-  								<input type="radio" name="public" value="true" id="public-radio" checked>
-
-									<label for="private-radio">비공개</label>
-  								<input type="radio" name="public" value="false" id="private-radio">
-  							
-							</div>
 			    </li>
 	    	    </ul>
 	    	<ul class="buttons">

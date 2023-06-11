@@ -19,8 +19,8 @@
 		exit;
 	}
 
-	$con = mysqli_connect("localhost", "root", "", "DM");
-	$sql = "select * from members where id='$rv_id'";
+	$con = mysqli_connect("localhost", "root", "", "DBDBDIB");
+	$sql = "select * from members where user_id='$rv_id'";
 	$result = mysqli_query($con, $sql);
 	$num_record = mysqli_num_rows($result);
 
@@ -29,7 +29,7 @@
 		$row = mysqli_fetch_array($result);
 		$num_of_message = $row["num_of_message"];
 		$num_of_message += 1;
-		$sql = "update members set num_of_message ='$num_of_message' where id= '$rv_id'";
+		$sql = "update members set num_of_message ='$num_of_message' where user_id= '$rv_id'";
 		mysqli_query($con, $sql); // 받은 사람의 쪽지 수를 1 추가해줌
 
 		$sql = "insert into message (send_id, rv_id, subject, content,  regist_day) ";

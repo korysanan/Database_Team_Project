@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common1.css">
 <link rel="stylesheet" type="text/css" href="./css/board_list_for_hit.css">
@@ -24,7 +24,7 @@
 			<button id = "recommend_btn" onclick="location.href='board_list_for_recommend.php'">추천순</button>
 		</div>
 	    <h3>
-	    	모두의 일기 보기(조회순)
+	    	게시글 보기(조회순)
 		</h3>
 	    <ul id="board_list">
 				<li>
@@ -40,7 +40,7 @@
 	else
 		$page = 1;
 
-	$con = mysqli_connect("localhost", "root", "", "dm");
+	$con = mysqli_connect("localhost", "root", "", "DBDBDIB");
 	$sql = "select * from board order by hit desc, num desc";
 	$result = mysqli_query($con, $sql);
 	$total_record = mysqli_num_rows($result); // 전체 글 수
@@ -64,7 +64,6 @@
       // 가져올 레코드로 위치(포인터) 이동
       $row = mysqli_fetch_array($result);
       // 하나의 레코드 가져오기
-      if($row["public"] == "true"){
 	  $num         = $row["num"];
 	  $id          = $row["id"];
 	  $name        = $row["name"];
@@ -92,7 +91,6 @@
 					<span class="col7"><?=$image_file?></span>
 				</li>	
 <?php
-	}
    	   $number--;
    }
    mysqli_close($con);

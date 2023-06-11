@@ -3,7 +3,7 @@
 	$user_num=$_GET["user_num"];
 	$grade=$_POST["grade"];
 
-	$con = mysqli_connect("localhost", "root", "", "dbdbdip");
+	$con = mysqli_connect("localhost", "root", "", "dbdbdib");
 	$sql= "update grade set grade=$grade where Content_ID=$cid and Member_ID=$user_num";
 	mysqli_query($con, $sql);
 	mysqli_close($con);    

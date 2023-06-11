@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/board_view.css">
@@ -29,52 +29,111 @@
 <section>
    	<div id="board_box">
 	    <h3 class="title">
-			일기장 > 내용보기
+			게시글 > 내용보기
 		</h3>
 <?php
-	$id  = $_GET["num"];
+	$num  = $_GET["num"];
 	$page  = $_GET["page"];
 
-	$con = mysqli_connect("localhost", "root", "", "dbdbdip");
-	$sql = "select * from contents where id=$id";
+	$con = mysqli_connect("localhost", "root", "", "dbdbdib");
+	$sql = "select * from board where num=$num";
 	$result = mysqli_query($con, $sql);
 
 	$row = mysqli_fetch_array($result);
+	$id      = $row["id"];
+	$name      = $row["name"];
+	$regist_day = $row["regist_day"];
+	$subject    = $row["subject"];
+	$content    = $row["content"];
+	$file_name    = $row["file_name"];
+	$file_type    = $row["file_type"];
+	$file_copied  = $row["file_copied"];
+	$hit          = $row["hit"];
+	$recommend	  = $row["recommend"]; 
 
-	 $id          = $row["id"];
-     $title        = $row["title"];
-     $opening_time  = $row["opening_time"];
-     $director  = $row["director"];
-     $age_limit         = $row["age_limit"];
-     $runnings_time     = $row["running_times"];
+    if ($file_type) {
+        $image_file = "<img src='./data/{$file_copied}'>";
+        }
+    else{
+    	$image_file = false;
+    }   
 
-	$sql2 = "select * from images where id = '$id'";
-    $result2 = mysqli_query($con, $sql2);
-    $row = mysqli_fetch_array($result2);
-    $image_file = '<img src="data:image/jpeg;base64,'.base64_encode($row['imageData']).'"/>';
+	$content = str_replace(" ", "&nbsp;", $content);
+	$content = str_replace("\n", "<br>", $content);
+
+	$hit_check = $userid.$num."_hit"; 
+	$new_hit = $hit;
+	
+    if(!(isset($_COOKIE[$hit_check]))) { // 쿠키가 없어야만
+        $new_hit = $hit + 1;  // 조회수 1 증가 
+        $sql = "update board set hit=$new_hit where num=$num";  
+        mysqli_query($con, $sql);
+        setcookie("$hit_check", true, time() + (60*60*24)); // 24시간동안 조회수 쿠키 생성
+      } 
+    
 ?>		
 		<!-- 여기서 부터 화면 출력 -->
 	    <ul id="view_content">
 			<li>
-				<span class="col1"><b>제목 :</b> <?=$title?></span>
-				<span class="col2"><?=$director?> | <?=$runnings_time."분"?> | <?="나이제한: ".$age_limit?></span>
+				<span class="col1"><b>제목 :</b> <?=$subject?></span>
+				<span class="col2"><?=$name?> | <?=$regist_day?> | <?="조회수: ".$new_hit?></span>
+			</li>
+			<li>
+				<?php
+					if($file_name) {
+						$real_name = $file_copied;
+						$file_path = "./data/".$real_name;
+						$file_size = filesize($file_path);
+
+						echo "▷ 첨부파일 : $file_name ($file_size Byte) &nbsp;&nbsp;&nbsp;&nbsp;
+			       		<a href='board_download.php?num=$num&real_name=$real_name&file_name=$file_name&file_type=$file_type'>[저장]</a><br><br>";
+			           	}
+				?>
 			</li>
 			
 			<li>	
 				<?php 
-					echo $image_file;
+					if($image_file) echo $image_file;
 				?>	
 			<br>
 			</li>
 
 			<li>					
-				<?=$id?>
+				<?=$content?>
 			</li>		
 	    </ul>
-	    
+	    <ul>
+	    	<form name="form1" method="post">
+	    		<div id = "btn_group">	
+	    		<input id ="recommend_btn" type="submit" name="recommend" value="추천해요!"> <span class="col1"><?=$recommend?></span>
+	    			<?php
+	    				if(isset($_POST['recommend'])){
+	    						$recommend_check = $userid.$num."_recommend";
+								if(!(isset($_COOKIE[$recommend_check]))) { // 쿠키가 없어야만
+        							$new_recommend = $recommend + 1;  // 추천이 1 증가 
+        							$sql = "update board set recommend=$new_recommend where num=$num";  
+        							mysqli_query($con, $sql);
+        							setcookie("$recommend_check", true, time() + (60*60*24)); // 24시간동안 쿠키 생성
+        							echo "<script> history.go(0)</script>";
+      							}
+						}		
+					?>
+				</div>	
+			</form>			
+	    </ul>	
 	    <ul class="buttons">
-			<?php // 수정과 삭제하기 버튼을 제공	
+	    	<?php
+	    		if($id == $_SESSION['userid']) // 로그인된 유저와 글 작성자가 같으면
+	    		{
+	    	?>
+				<li><button onclick="location.href='board_modify_form.php?num=<?=$num?>&page=<?=$page?>'">수정</button></li>
+				<li><button onclick="location.href='board_delete.php?num=<?=$num?>&page=<?=$page?>'">삭제</button></li>
+				<li><button onclick="history.go(-1)">뒤로가기</button></li>
+			<?php // 수정과 삭제하기 버튼을 제공
+				} 
+				else { // 다르다면
 					echo"<li><button onclick='history.go(-1)''>뒤로가기</button></li>"; //뒤로가기 버튼만 제공
+				}
 			?>	
 		</ul>
 	</div> <!-- board_box -->

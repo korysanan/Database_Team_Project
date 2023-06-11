@@ -17,7 +17,7 @@
     $upfile_size     = $_FILES["upfile"]["size"];
     $upfile_error    = $_FILES["upfile"]["error"];
 
-    $con = mysqli_connect("localhost", "root", "", "dm");
+    $con = mysqli_connect("localhost", "root", "", "DBDBDIB");
     if ($upfile_name && !$upfile_error)
     {
         $file = explode(".", $upfile_name);

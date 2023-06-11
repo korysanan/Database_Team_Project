@@ -1,6 +1,6 @@
 /* 게시판 글쓰기(board_form.php) */
 #board_box { position: relative; width: 1000px; margin: 0 auto;}
-#board_box h3 { margin-top: 30px;	padding: 10px; border-bottom: solid 2px #516e7f; font-size: 20px; }
+#board_box h3 { margin-top: 30px;	padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px; }
 #board_form span { display: inline-block; }
 #board_form .col1 { width: 150px; }
 #board_form li {	padding: 12px; border-bottom: solid 1px #dddddd; }
@@ -30,3 +30,22 @@ label {
   height: 30px;
   font-size: 20px;
 }
+
+#board_box .buttons button { 
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 5px 10px; 
+  cursor: pointer; 
+  background-color: #828DE2;
+  border: 1px solid #828DE2;
+  color: white;
+  font-size: 20px;
+  }
+
+#board_box .buttons button:hover { 
+  background-color: white;
+  border: 1px solid #828DE2;
+  color: #828DE2;
+  }

@@ -10,7 +10,7 @@
 ?>		
         <div id="top">
             <h3>
-                <i class="fa-solid fa-mug-hot"></i>
+                <i class="fa-solid fa-play"></i>
                 <a href="index.php">DBDBDIB</a>
             </h3>
             <ul id="top_menu">  
@@ -29,7 +29,7 @@
                 $sql = "select * from members where user_id='$userid'";
                 $result = mysqli_query($con, $sql);
                 $row = mysqli_fetch_array($result);
-                $num_of_messege = $row["num_of_messege"]; // 사용자의 안 읽은 쪽지수를 가졋와서
+                $num_of_message = $row["num_of_message"]; // 사용자의 안 읽은 쪽지수를 가졋와서
 ?>
                 <li><?=$logged?> </li>
                 <li> | </li>
@@ -48,8 +48,8 @@
             <ul> 
                 <li><a href="contents_list.php">Contents</a></li>
                 <li><a href="board_list.php">Boards</a></li>
-                <li><a href="board_form.php">Event</a></li>
-                <?php if($num_of_messege != 0){
+                <li><a href="events_list.php">Event</a></li>
+                <?php if($num_of_message != 0){
                         // 안읽은 쪽지가 있다면 
                 ?>
                 <li><a href="message_box.php?mode=rv">Note <i class="fa-solid fa-circle fa-bounce fa-2xs" style="color: #ff0000;"></i></a></li>

@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Diary For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/message.css">
@@ -22,7 +22,7 @@
 	$mode = $_GET["mode"];
 	$num  = $_GET["num"];
 
-	$con = mysqli_connect("localhost", "root", "", "DM");
+	$con = mysqli_connect("localhost", "root", "", "DBDBDIB");
 	$sql = "select * from message where num=$num";
 	$result = mysqli_query($con, $sql);
 
@@ -38,28 +38,28 @@
 	$content = str_replace("\n", "<br>", $content);
 
 	if ($mode=="send")
-		$result2 = mysqli_query($con, "select name from members where id='$rv_id'");
+		$result2 = mysqli_query($con, "select user_nickname from members where user_id='$rv_id'");
 	else{
-		$result2 = mysqli_query($con, "select name from members where id='$send_id'");
+		$result2 = mysqli_query($con, "select user_nickname from members where user_id='$send_id'");
 
 		if ($row["is_read"] == "false"){
 		$sql = "update message set is_read ='true' where num=$num";
 		mysqli_query($con, $sql);
 
 
-		$sql = "select * from members where id='$rv_id'";
+		$sql = "select * from members where user_id='$rv_id'";
 		$result = mysqli_query($con, $sql);
 		$row = mysqli_fetch_array($result);
 		$num_of_message = $row["num_of_message"];
 		$num_of_message -= 1;
-		$sql = "update members set num_of_message ='$num_of_message' where id= '$rv_id'";
+		$sql = "update members set num_of_message ='$num_of_message' where user_id= '$rv_id'";
 		mysqli_query($con, $sql); // 받은 사람의 쪽지 수를 1 빼줌
 
 		}
 	}
 
 	$record = mysqli_fetch_array($result2);
-	$msg_name = $record["name"];
+	$msg_name = $record["user_nickname"];
 
 	if ($mode=="send")	    	
 	    echo "보낸 쪽지함 > 내용보기";

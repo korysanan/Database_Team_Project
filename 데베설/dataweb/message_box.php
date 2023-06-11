@@ -2,7 +2,7 @@
 <html>
 <head> 
 <meta charset="utf-8">
-<title>Dairy For Me</title>
+<title>DBDBDIB</title>
 <link rel="icon" href="./img/favicon.png"/>
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/message.css">
@@ -59,7 +59,7 @@
 					<span class="col4">등록일</span>
 				</li>
 <?php
-	$con = mysqli_connect("localhost", "root", "", "dm");
+	$con = mysqli_connect("localhost", "root", "", "DBDBDIB");
 
 	if ($mode=="send")
 		$sql = "select * from message where send_id='$userid' order by num desc";
@@ -98,9 +98,9 @@
 	  else
 	  	$msg_id = $row["send_id"];
 	  
-	  $result2 = mysqli_query($con, "select name from members where id='$msg_id'");
+	  $result2 = mysqli_query($con, "select user_nickname from members where user_id='$msg_id'");
 	  $record = mysqli_fetch_array($result2);
-	  $msg_name  = $record["name"];	  
+	  $msg_name  = $record["user_nickname"];	  
 ?>
 				<li>
 					<?php if($mode == "send"){?>
