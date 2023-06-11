@@ -91,7 +91,7 @@ $back_running = $_POST['back_running'];
             else
                 $page = 1;
 
-            $con = mysqli_connect("localhost", "root", "", "dbdbdip");
+            $con = mysqli_connect("localhost", "root", "", "dbdbdib");
             $sql = "SELECT * FROM contents where "; 
             $sql .= "title LIKE '%$search%' or  director LIKE '%$search%' or author LIKE '%$search%' ";
             if(($front_date)!= NULL && $back_date !=NULL)
