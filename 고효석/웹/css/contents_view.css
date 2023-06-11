@@ -1,0 +1,95 @@
+/* 게시판 내용보기(board_view.php) */
+#board_box { position: relative; width: 1000px; margin: 0 auto;}
+#board_box h3 { margin-top: 30px;	padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px; }
+#board_box { width: 1000px; margin: 0 auto; }
+#board_box .title { margin-top: 30px; padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px; }
+#view_content {
+	width: 1000px;
+	text-align: center;
+}
+#view_content li:nth-child(1) {	padding: 15px; border-bottom: solid 1px #aaaaaa; text-align: left;}
+#view_content .col2 { float: right; }
+#view_content li:nth-child(2) {text-align: left;width:400px; background-color: #aaaaaa; font-size: 20px;}
+#view_content li:nth-child(3) {position: absolute;left: 410px; top:102px; width:590px; text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col3 {position: relative;}
+#view_content .col4 {position: absolute;left: 0px;  top:40px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col5 {position: absolute;left: 0px;  top:80px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col6 {position: absolute;left: 0px;  top:120px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col7 {position: absolute;left: 0px;  top:160px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col8 {position: absolute;left: 0px;  top:200px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col9 {position: absolute;left: 0px;  top:240px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col10 {position: absolute;left: 0px;  top:280px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col11 {position: absolute;left: 0px;  top:320px; width:590px;text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col12 {position: absolute;left: 0px;  top:320px; width:590px;  text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content .col13 {position: absolute;left: 0px;  top:360px; width:590px;  text-align:left; background-color: #aaaaaa; font-size: 20px;}
+#view_content #platform { display: inline; width: 50px; height:50px; margin: 10px; border-radius: 20%; }
+#view_content #image img{
+	margin: 20px;
+	width: 350px;
+	border: 5px outset rgba(150, 150, 150, 1);
+
+	vertical-align: middle; /* 수직 가운데 정렬을 위해 추가 */
+}
+#board_box .buttons { text-align: right; margin: 20px 0 40px 0; }
+#board_box .buttons li { display: inline; }
+#board_box .buttons button { 
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding: 5px 10px; 
+	cursor: pointer; 
+	background-color: #828DE2;
+	border: 1px solid #828DE2;
+	color: white;
+	font-size: 20px;
+	}
+
+#board_box .buttons button:hover { 
+	background-color: white;
+	border: 1px solid #828DE2;
+	color: #828DE2;
+	}
+
+
+#input_btn{
+	border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
+		border-bottom-right-radius: 5px;
+		border-bottom-left-radius: 5px;
+}
+
+#btn_group{
+		margin-top: 20px;
+		text-align: center;
+		width: 1000px;
+}
+
+#btn_group .col1{
+	font-size: 25px;
+}
+
+#btn_group input{
+		padding: 5px 10px; 
+		cursor: pointer; 
+		font-size: 20px;
+		border-top-right-radius: 100px;
+		border-top-left-radius: 100px;
+		border-bottom-right-radius: 100px;
+		border-bottom-left-radius: 100px;
+}
+
+#btn_group input:hover{
+	background-color: #828DE2;
+	border: 2px solid #828DE2;
+	color: white;
+}
+
+#recommend_btn{
+	background-color: white;
+	border: 2px solid #828DE2;
+	color: #828DE2;
+	margin-right: 10px;
+}
+
+

@@ -1,0 +1,32 @@
+/* 게시판 글쓰기(board_form.php) */
+#board_box { position: relative; width: 1000px; margin: 0 auto;}
+#board_box h3 { margin-top: 30px;	padding: 10px; border-bottom: solid 2px #516e7f; font-size: 20px; }
+#board_form span { display: inline-block; }
+#board_form .col1 { width: 150px; }
+#board_form li {	padding: 12px; border-bottom: solid 1px #dddddd; }
+#board_form input { width: 970px; height: 30px;  font-size: 16px}
+#board_form textarea { width: 970px;	height: 400px; font-size: 20px}
+#board_form #text_area {	position: relative;}
+#board_form #text_area .col1 { position: absolute; top: 10px; }
+#board_box .buttons { text-align: right; margin: 20px 0 40px 0; }
+#board_box .buttons li { display: inline; }
+#board_box .buttons button { padding: 5px 10px; cursor: pointer; }
+
+#preview_image {text-align: center;}
+#preview_image img {height: 250px; width: 500px}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+label {
+  margin-right: 10px;
+  width: 200px;
+  height: 30px;
+  font-size: 20px;
+}
