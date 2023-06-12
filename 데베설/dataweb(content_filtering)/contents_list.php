@@ -12,6 +12,17 @@
 <script src="https://kit.fontawesome.com/331cd420b4.js" crossorigin="anonymous"></script>
 
 </head>
+<?php
+if(!empty($_POST['front_date']))
+    $front_date = $_POST['front_date'];
+if(!empty($_POST['back_date']))
+    $back_date = $_POST['back_date'];
+if(!empty($_POST['front_running']))
+    $front_running = $_POST['front_running'];
+if(!empty($_POST['back_running']))
+    $back_running = $_POST['back_running'];
+$search=0;
+?>
 <body> 
 <header>
     <?php include "header.php";?>
@@ -22,10 +33,34 @@
 			<button id = "recent_btn">콘텐츠</button>
 			<button id = "hit_btn" onclick="location.href='contents_list_drama.php'">드라마</button>
 			<button id = "recommend_btn" onclick="location.href='contents_list_movie.php'">영화</button>
+            <button id = "recommend_btn" onclick="location.href='new_filtering.php'">필터링</button>
 		</div>
 	    <h3>
 	    	모두보기
 		</h3>
+              <h3>
+        필터링 내용
+    </h3>
+    <?php 
+    if(!empty($front_date) && !empty($back_date))
+        echo "<br>| 개봉시기 : $front_date ~ $back_date \n";
+    if(!empty($front_running) && !empty($back_running))
+        echo "<br>| 러닝타임 : $front_running (분) ~ $back_running (분)";
+    if(isset($_POST['genre'])){
+        echo  "<br>| 장르 : ";
+        for ($i = 0; $i < count($_POST['genre']); $i++){
+            $genre = $_POST['genre'][$i];
+            echo " $genre ";
+        }
+    }
+    if(isset($_POST['platform'])){
+        echo "<br>| 지원 플랫폼 : ";
+        for ($i = 0; $i < count($_POST['platform']); $i++){
+            $platform = $_POST['platform'][$i];
+            echo " $platform ";
+        }
+    } 
+    ?>
 	   <ul id="board_list">
 				<li>
           <!-- 각각의 게시물 카드 -->
@@ -36,7 +71,66 @@
                         $page = 1;
 
                     $con = mysqli_connect("localhost", "root", "", "dbdbdib");
-                    $sql = "select * from contents order by title asc";
+        $sql = "SELECT * FROM contents where "; 
+        $sql .= "(contents.id != -1) ";
+        if(!empty($front_date) && !empty($back_date))
+            $sql .= " And opening_time between '$front_date' and '$back_date' ";
+        if(!empty($front_running) && !empty($back_running))
+            $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+
+        if(isset($_POST['genre'])&&isset($_POST['platform'])){
+            $sql = "select * from (contents inner join contents_genre on contents.id=contents_genre.id) inner join contents_platform on contents.id = contents_platform.id where";
+            $sql .= "(contents.id != -1) ";
+            if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+            if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+            $sql .= " AND (";
+            for ($i = 0; $i < count($_POST['genre'])-1; $i++){
+                $genre = $_POST['genre'][$i];
+                $sql .= "contents_genre.genre = '$genre' or ";
+            }
+            $genre = $_POST['genre'][count($_POST['genre'])-1];
+            $sql .= "contents_genre.genre = '$genre' ) and (";
+            for ($i = 0; $i < count($_POST['platform'])-1; $i++){
+                $platform = $_POST['platform'][$i];
+                $sql .= "contents_platform.platform = '$platform' or ";
+            }
+            $sql .= "contents_platform.platform = '$platform' )";
+        }
+        else if(isset($_POST['genre'])){
+            $sql = "SELECT * FROM contents inner join contents_genre on contents.id=contents_genre.id where ";
+            $sql .= "(contents.id != -1) ";
+            if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+            if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+            $sql .= " AND (";
+            for ($i = 0; $i < count($_POST['genre'])-1; $i++){
+                $genre = $_POST['genre'][$i];
+                $sql .= "contents_genre.genre = '$genre' or ";
+            }
+            $genre = $_POST['genre'][count($_POST['genre'])-1];
+            $sql .= "contents_genre.genre = '$genre' ) ";
+        }
+        else if(isset($_POST['platform'])){
+            $sql = "SELECT * FROM contents inner join contents_platform on contents.id=contents_platform.id where ";
+            $sql .= "(contents.id != -1) ";
+            if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+            if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+            $sql .= " AND (";
+            for ($i = 0; $i < count($_POST['platform'])-1; $i++){
+                $platform = $_POST['platform'][$i];
+                $sql .= "contents_platform.platform = '$platform' or ";
+            }
+            $platform = $_POST['platform'][count($_POST['platform'])-1];
+            $sql .= "contents_platform.platform = '$platform' ) ";
+        }
+        
+
+        $sql .= "group by contents.id ORDER BY contents.id DESC";
                     $result = mysqli_query($con, $sql);
                     $total_record = mysqli_num_rows($result); // 전체 글 수
 

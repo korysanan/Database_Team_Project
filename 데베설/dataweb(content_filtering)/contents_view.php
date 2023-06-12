@@ -29,7 +29,7 @@
 <section>
    	<div id="board_box">
 	    <h3 class="title">
-			일기장 > 내용보기
+			콘텐츠 > 세부정보
 		</h3>
 <?php
 	$id  = $_GET["num"];
@@ -173,7 +173,7 @@
 	    
 	    <ul class="buttons">
 			<?php // 수정과 삭제하기 버튼을 제공	
-					echo"<li><button onclick='history.go(-1)''>뒤로가기</button></li>"; //뒤로가기 버튼만 제공
+					echo"<li><button onclick=\"location.href='contents_list.php'\">뒤로가기</button></li>"; //뒤로가기 버튼만 제공
 			?>	
 		</ul>
 	</div> <!-- board_box -->
