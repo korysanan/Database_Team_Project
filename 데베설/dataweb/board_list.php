@@ -134,11 +134,11 @@
     if($userid) {
 ?>
                 <div id = "btn_group"></div>
-                    <button id = "input_btn" onclick="location.href='board_form.php'">일기쓰기</button>
+                    <button id = "input_btn" onclick="location.href='board_form.php'">게시글쓰기</button>
 <?php
     } else {
 ?>
-                    <a href="javascript:alert('로그인 후 이용해 주세요!')"><button id = "input_btn">일기쓰기</button></a>
+                    <a href="javascript:alert('로그인 후 이용해 주세요!')"><button id = "input_btn">게시글쓰기</button></a>
 <?php
     }
 ?>

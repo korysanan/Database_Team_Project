@@ -59,10 +59,7 @@
                     // 가져올 레코드로 위치(포인터) 이동
                     $row = mysqli_fetch_array($result);
                     // 하나의 레코드 가져오기
-                   mysqli_data_seek($result, $i);
-      // 가져올 레코드로 위치(포인터) 이동
-      $row = mysqli_fetch_array($result);
-      // 하나의 레코드 가져오기
+                 
       $id          = $row["id"];
       $title        = $row["title"];
       $opening_time  = $row["opening_time"];

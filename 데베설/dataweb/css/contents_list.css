@@ -28,9 +28,6 @@
 	}
 
 	#board_box .card {
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; */
   width: 250px;
   height: 370px;
   margin: 15px;
@@ -130,6 +127,7 @@
   margin: 20px;
   margin-bottom: 100px;
 }
+
 #board_list {
   display: flex;
   flex-direction: row;
