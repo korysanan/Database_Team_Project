@@ -1,0 +1,81 @@
+/* 리뷰(reviews.php) */
+#board_box { position: relative; width: 1000px; margin: 0 auto;}
+#board_box h3 { margin-top: 30px;	padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px; }
+#review_contents li { display: block; padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#review_contents span { display: block; text-align: center; vertical-align: middle; text-align: left; background-color: #aaaaaa}
+#review_contents .col1 { width: 1000px; }
+#review_contents .col2 { width: 1000px; margin-top:3px;}
+#review_contents .col3 { width: 1000px; margin-top:3px;}
+#review_contents .col4 {position: relative; width: 1000px; }
+#board_box #review_contents .col3 button{
+	position: relative;left: 600px;
+	width: 80px;
+	height: 30px;
+	margin: 5px 10px 5px 10px;
+	cursor: pointer;
+	background-color: #828de2;
+	border: 1px solid #828DE2;
+	color: white;
+	font-size: 16px;
+}
+#board_box #review_contents .col3 button:hover{
+	background-color: white;
+	border: 1px solid #828DE2;
+	color: #828DE2;
+}
+#board_box #review_contents .col3 input[type="submit"]
+{
+	position: relative;left: 600px;
+	width: 100px;
+	height: 30px;
+	margin: 5px 10px 5px 10px;
+	cursor: pointer;
+	background-color: #828de2;
+	border: 1px solid #828DE2;
+	color: white;
+	font-size: 16px;
+}
+#board_box #review_contents .col3 input[type="submit"]:hover
+{
+	background-color: white;
+	border: 1px solid #828DE2;
+	color: #828DE2;	
+}
+
+#review_insert { display: inline-block; border-bottom: solid 1px #dddddd;}
+#review_insert textarea { width:900px; height:100px; }
+#review_insert input[type="submit"]{
+	position:absolute; 
+	width:100px; 
+	height:100px;
+	cursor: pointer;
+	background-color: #828de2;
+	border: 1px solid #828DE2;
+	color: white;
+	font-size: 30px;
+}
+#review_insert input[type="submit"]:hover
+{
+	background-color: white;
+	border: 1px solid #828DE2;
+	color: #828DE2;
+}
+
+#page_num {	text-align: center;	margin: 30px 0 }
+#page_num li { display: inline; }
+#board_box .buttons { text-align: right; margin: 20px 0 40px 0; }
+#board_box .buttons li { display: inline; }
+#board_box .buttons button { 
+	padding: 5px 10px; 
+	cursor: pointer; 
+	background-color: #828DE2;
+	border: 1px solid #828DE2;
+	color: white;
+	font-size: 20px;
+	}
+
+#board_box .buttons button:hover { 
+	background-color: white;
+	border: 1px solid #828DE2;
+	color: #828DE2;
+	}
