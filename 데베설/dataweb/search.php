@@ -5,7 +5,7 @@
     <title>Search</title>
     <link rel="icon" href="./img/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="./css/common1.css">
-    <link rel="stylesheet" type="text/css" href="./css/board_list_for_recent.css">
+    <link rel="stylesheet" type="text/css" href="./css/contents_list.css">
     <link rel="preconnect" href="https://fonts.googleapis.com%22%3E">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap" rel="stylesheet">
@@ -13,12 +13,16 @@
     </script>
 </head>
 <?php
-        $search = $_GET['search'];
-        $front_date = $_POST['front_date'];
-        $front_date =" ";
-        $back_date = $_POST['back_date'];
-        $front_running = $_POST['front_running'];
-        $back_running = $_POST['back_running'];
+$search = $_GET['search'];
+if(!empty($_POST['front_date']))
+    $front_date = $_POST['front_date'];
+if(!empty($_POST['back_date']))
+    $back_date = $_POST['back_date'];
+if(!empty($_POST['front_running']))
+    $front_running = $_POST['front_running'];
+if(!empty($_POST['back_running']))
+    $back_running = $_POST['back_running'];
+
 ?>
 
 <body> 
@@ -27,12 +31,12 @@
     </header> 
     <script>
         function Filtering() {
-           window.open("filtering.php", + document.member_form.id.value,
-              "left=700,top=300,width=750,height=500,scrollbars=no,resizable=yes");
-       }
-   </script>
-   <br>
-   <div class=search>
+         window.open("filtering.php", + document.member_form.id.value,
+          "left=700,top=300,width=750,height=500,scrollbars=no,resizable=yes");
+     }
+ </script>
+ <br>
+ <div class=search>
     <form name=subsearch method="get" action="search.php" style="text-align:center;margin:auto;" >
         <input class=textform type=text style="text-align:center; margin:auto; width:750px; height:100px; font-size:30px; border-width:10px"  name=search id="search_box" autocomplete="off" placeholder="검색할 항목을 입력하세요." required>
         <input class=submit type=submit value=검색 style="width:104px;height:104px; font-size:30px; border-width:10px ">
@@ -41,15 +45,15 @@
     </p>
 </form>
 </div>
-<h3 class="title" style ="margin-top: 30px;  padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px;position: relative; width: 800px; margin: 0 auto;">
+<h3 class="title" style ="margin-top: 30px;  padding: 10px; font-size: 20px;position: relative; width: 800px; margin: 0 auto;">
     검색결과 | <?=$search?>
 </h3> 
-<h3 class="title" style ="margin-top: 30px;  padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px;position: relative; width: 800px; margin: 0 auto;">
+<h3 class="title" style ="padding: 10px; border-bottom: solid 2px #828DE2; font-size: 20px;position: relative; width: 800px; margin: 0 auto;">
     필터링 내용  
     <?php 
-    if(($front_date)!= NULL && $back_date !=NULL)
+    if(!empty($front_date) && !empty($back_date))
         echo "<br>| 개봉시기 : $front_date ~ $back_date \n";
-    if(($front_running)!= NULL && $back_running !=NULL)
+    if(!empty($front_running) && !empty($back_running))
         echo "<br>| 러닝타임 : $front_running (분) ~ $back_running (분)";
     if(isset($_POST['genre'])){
         echo  "<br>| 장르 : ";
@@ -76,7 +80,7 @@
         </form>
 
         <h3>
-            모두보기
+            결과보기
         </h3>
         <ul id="board_list">
             <li>
@@ -89,11 +93,65 @@
 
             $con = mysqli_connect("localhost", "root", "", "dbdbdib");
             $sql = "SELECT * FROM contents where "; 
-            $sql .= "title LIKE '%$search%' or  director LIKE '%$search%' or author LIKE '%$search%' ";
-            if(($front_date)!= NULL && $back_date !=NULL)
-                $sql .= " AND DATE_FORMAT(opening_time, '%Y-%m-%d') > DATE_FORMAT( '$front_date', '%Y-%m-%d') AND DATE_FORMAT(opening_time, '%Y-%m-%d') < DATE_FORMAT( '$back_date', '%Y-%m-%d') ";
-            if(($front_running)!= NULL && $back_running !=NULL)
-                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ORDER BY id DESC";
+            $sql .= "(title LIKE '%$search%' or  director LIKE '%$search%' or author LIKE '%$search%') ";
+            if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+            if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+
+            if(isset($_POST['genre'])&&isset($_POST['platform'])){
+                $sql = "select * from (contents inner join contents_genre on contents.id=contents_genre.id) inner join contents_platform on contents.id = contents_platform.id where";
+                $sql .= "(title LIKE '%$search%' or  director LIKE '%$search%' or author LIKE '%$search%') ";
+                if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+                if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+                $sql .= " AND (";
+                for ($i = 0; $i < count($_POST['genre'])-1; $i++){
+                    $genre = $_POST['genre'][$i];
+                    $sql .= "contents_genre.genre = '$genre' or ";
+                }
+                $genre = $_POST['genre'][count($_POST['genre'])-1];
+                $sql .= "contents_genre.genre = '$genre' ) and (";
+                for ($i = 0; $i < count($_POST['platform'])-1; $i++){
+                    $platform = $_POST['platform'][$i];
+                    $sql .= "contents_platform.platform = '$platform' or ";
+                }
+                $sql .= "contents_platform.platform = '$platform' )";
+            }
+            else if(isset($_POST['genre'])){
+                $sql = "SELECT * FROM contents inner join contents_genre on contents.id=contents_genre.id where ";
+                $sql .= "(title LIKE '%$search%' or  director LIKE '%$search%' or author LIKE '%$search%') ";
+                if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+                if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+                $sql .= " AND (";
+                for ($i = 0; $i < count($_POST['genre'])-1; $i++){
+                    $genre = $_POST['genre'][$i];
+                    $sql .= "contents_genre.genre = '$genre' or ";
+                }
+                $genre = $_POST['genre'][count($_POST['genre'])-1];
+                $sql .= "contents_genre.genre = '$genre' ) ";
+            }
+            else if(isset($_POST['platform'])){
+                $sql = "SELECT * FROM contents inner join contents_platform on contents.id=contents_platform.id where ";
+                $sql .= "(title LIKE '%$search%' or  director LIKE '%$search%' or author LIKE '%$search%') ";
+                if(!empty($front_date) && !empty($back_date))
+                $sql .= " And opening_time between '$front_date' and '$back_date' ";
+                if(!empty($front_running) && !empty($back_running))
+                $sql .= " AND running_times  >= $front_running AND running_times <= $back_running ";
+                $sql .= " AND (";
+                for ($i = 0; $i < count($_POST['platform'])-1; $i++){
+                    $platform = $_POST['platform'][$i];
+                    $sql .= "contents_platform.platform = '$platform' or ";
+                }
+                $platform = $_POST['platform'][count($_POST['platform'])-1];
+                $sql .= "contents_platform.platform = '$platform' ) ";
+            }
+            
+
+            $sql .= "group by contents.id ORDER BY contents.id DESC";
             $result = mysqli_query($con, $sql);
                     $total_record = mysqli_num_rows($result); // 전체 글 수
 

@@ -42,6 +42,7 @@
 
     echo "
 	      <script>
+              alert('회원 정보가 수정되었습니다!');
 	          location.href = 'index.php';
 	      </script>
 	  ";

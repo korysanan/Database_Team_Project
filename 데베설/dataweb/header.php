@@ -1,6 +1,6 @@
 ﻿<?php
     session_start();
-    $num_of_messege = 0;
+    $num_of_message = 0;
 
     if (isset($_SESSION["userid"])) $userid = $_SESSION["userid"];
     else $userid = "";
@@ -37,7 +37,7 @@
                 <li> | </li>
                 <li><a href="member_modify_form.php">정보 수정</a></li>
                 <li> | </li>
-                <li><a href="member_delete.php">회원 탈퇴</a></li>
+                <li><a href="member_delete_form.php">회원 탈퇴</a></li>
 <?php
     }
 ?>

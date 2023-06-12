@@ -90,9 +90,9 @@ $search = $_GET['search'];
    <div class="col1"></div>
    <div class="checkbox-group">
       <label>드라마</label>
-      <input type="checkbox" name="gerne[]" value="드라마">
+      <input type="checkbox" name="genre[]" value="드라마">
       <label>다큐</label>
-      <input type="checkbox" name="gerne[]" value="다큐">
+      <input type="checkbox" name="genre[]" value="다큐">
    </div>
    <div class="clear"></div>
    <br>

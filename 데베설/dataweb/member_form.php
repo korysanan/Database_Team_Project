@@ -87,7 +87,7 @@
         <div id="main_content">
           <h3>
             <i class="fa-solid fa-star fa-bounce" style="color: #ffe01a;"></i>
-            Dairy For Me에 어서오세요!
+            DBDBDIB에 어서오세요!
             <i class="fa-solid fa-star fa-bounce" style="color: #ffe01a;"></i>
           </h3>
       		<div id="join_box">

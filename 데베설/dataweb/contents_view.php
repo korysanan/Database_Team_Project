@@ -20,7 +20,7 @@
 	{
 		echo("<script>
 				alert('로그인을 해야 읽을 수 있습니다!!');
-				history.go(-1);
+				location.href = 'index.php';
 				</script>
 			");
 		exit;
